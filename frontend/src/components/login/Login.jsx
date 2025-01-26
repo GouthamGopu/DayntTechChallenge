@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom"; 
 import { useDispatch, useSelector } from 'react-redux';
 
 import "./Login.css";
@@ -14,7 +14,6 @@ const Login = () => {
     password: "",
   });
   const {user} = useSelector(store=>store.auth);
-  console.log(user);
   const [loading, setLoading] = useState(false); 
   const navigate = useNavigate(); 
   const dispatch = useDispatch();
