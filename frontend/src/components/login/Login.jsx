@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useDispatch, useSelector } from 'react-redux';
 
 import "./Login.css";
+import { setAuthUser } from "../../../redux/authSlice";
 
 const Login = () => {
+  
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-  
-  const [loading, setLoading] = useState(false); // To track the button state
-  const navigate = useNavigate(); // Hook to navigate
-
+  const {user} = useSelector(store=>store.auth);
+  console.log(user);
+  const [loading, setLoading] = useState(false); 
+  const navigate = useNavigate(); 
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({
@@ -25,7 +29,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true); // Disable the button while submitting
+    setLoading(true); 
+
 
     try {
       const res = await axios.post(
@@ -40,18 +45,23 @@ const Login = () => {
       );
 
       if (res.data.success) {
+        dispatch(setAuthUser(res.data.user)); 
         toast.success(res.data.message);
-        navigate("/"); // Redirect to the homepage/dashboard
+        navigate("/"); 
       } else {
         toast.error(res.data.message);
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "An error occurred");
     } finally {
-      setLoading(false); // Re-enable the button once the request completes
+      setLoading(false); 
     }
   };
-
+  useEffect(()=>{
+    if(user){
+        navigate("/");
+    }
+  },[user])
   return (
     <div className="login-container">
       <div className="login-card">

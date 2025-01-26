@@ -7,7 +7,9 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
 }
-
+.headings{
+  font-weight: bold;
+}
 .dashboard-container {
   min-height: 90vh;
   width: 100vw;
@@ -31,7 +33,7 @@ body {
 }
 
 .table-container {
-  max-height: 400px;
+  max-height: 75vh;
   overflow-y: auto;
 }
 

@@ -4,8 +4,11 @@ import { toast } from "react-toastify";
 import "./Dashboard.css";
 import Header from "../header/Header";
 import axios from 'axios';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const {user} = useSelector(store=>store.auth);
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false); 
   const [name, setName] = useState("");
@@ -15,9 +18,7 @@ const Dashboard = () => {
 
 
 
-  useEffect(() => {
-    getItems();
-  }, []);
+  
 
   const getItems = async () => {
     try {
@@ -100,6 +101,15 @@ const Dashboard = () => {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`; 
   };
+ const navigate =useNavigate();
+  useEffect(()=>{
+      if(!user){
+          navigate("/login");
+      }
+      else{
+        getItems();
+      }
+    },[user])
   
 
   return (
@@ -113,7 +123,7 @@ const Dashboard = () => {
         <TableContainer component={Paper} className="table-container">
           <Table>
             <TableHead>
-              <TableRow>
+              <TableRow className="headings">
                 <TableCell>Name</TableCell>
                 <TableCell>Age</TableCell>
                 <TableCell>Date of Birth</TableCell>

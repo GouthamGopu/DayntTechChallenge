@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Register.css";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom"; 
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const [inputData, setInputData] = useState({
@@ -10,10 +11,9 @@ const Register = () => {
     email: "",
     password: "",
   });
-  
-  const [loading, setLoading] = useState(false); // To track the button state
-  const navigate = useNavigate(); // Hook to navigate
-
+  const {user} = useSelector(store=>store.auth);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputData((prevData) => ({
@@ -25,7 +25,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true); // Disable the button while submitting
+    setLoading(true); 
 
     try {
       const res = await axios.post("http://localhost:8000/dt/user/register", inputData, {
@@ -37,7 +37,7 @@ const Register = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-        navigate("/login"); // Redirect to the login page after successful registration
+        navigate("/login"); 
       } else {
         toast.error(res.data.message);
       }
@@ -45,10 +45,14 @@ const Register = () => {
       toast.error(err.response?.data?.message || "An error occurred");
       console.error("Registration error:", err);
     } finally {
-      setLoading(false); // Re-enable the button once the request completes
+      setLoading(false);
     }
   };
-
+  useEffect(()=>{
+    if(user){
+        navigate("/");
+    }
+  },[user])
   return (
     <div className="register-container">
       <div className="register-card">

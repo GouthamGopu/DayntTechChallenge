@@ -3,19 +3,27 @@ import { Button } from '@mui/material';
 import './Header.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { setAuthUser } from '../../../redux/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-
-    const logoutHandler = async () => {
-      try {
-          const res = await axios.get('http://localhost:8000/dt/user/logout', { withCredentials: true });
-          if (res.data.success) {
-              toast.success(res.data.message);
-          }
-      } catch (error) {
-          toast.error(error.response.data.message);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get('http://localhost:8000/dt/user/logout', { withCredentials: true });
+      if (res.data.success) {
+        dispatch(setAuthUser(null));
+        toast.success(res.data.message);
+        navigate("/login");
       }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   }
+  
   return (
     <header className="header">
       <div className="header-left">
