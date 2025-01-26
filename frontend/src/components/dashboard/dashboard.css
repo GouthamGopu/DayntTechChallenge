@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+.dashboard-container {
+  min-height: 90vh;
+  width: 100vw;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.table-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.table-container .MuiTable-root {
+  min-width: 650px;
+}
+
+.MuiTableCell-root {
+  font-size: 14px;
+  color: #555;
+}
+
+.MuiButton-root:hover {
+  cursor: pointer;
+}
+
+.btn-container{
+  display: flex;
+  gap: 12px;
+}
