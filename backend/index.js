@@ -2,6 +2,8 @@ import express, { urlencoded } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import userRoute from "./routes/user.route.js";
+import itemRoute from "./routes/item.route.js";
 import connectDB from "./utils/db.js";
 dotenv.config({});
 
@@ -21,6 +23,9 @@ const corsOptions = {
   credentials:true
 }
 app.use(cors(corsOptions));
+
+app.use("/dt/user",userRoute);
+app.use("/dt/item",itemRoute);
 
 const PORT = process.env.PORT||3000;
 
