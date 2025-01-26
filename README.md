@@ -36,7 +36,7 @@ git clone https://github.com/GouthamGopu/DayntTechChallenge.git
 
 2. For Backend
 
-```bash
+```.env file
 PORT=your_port
 MONGO_URI=your_mongo_connection_string
 SECRET_KEY=your_secret_key
