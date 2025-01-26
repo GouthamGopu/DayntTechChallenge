@@ -1,14 +1,55 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+
 import "./Login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  
+  const [loading, setLoading] = useState(false); // To track the button state
+  const navigate = useNavigate(); // Hook to navigate
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    setLoading(true); // Disable the button while submitting
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/dt/user/login",
+        loginData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true, 
+        }
+      );
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/"); // Redirect to the homepage/dashboard
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || "An error occurred");
+    } finally {
+      setLoading(false); // Re-enable the button once the request completes
+    }
   };
 
   return (
@@ -21,8 +62,9 @@ const Login = () => {
             <input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={loginData.email}
+              onChange={handleChange}
               required
             />
           </div>
@@ -31,15 +73,18 @@ const Login = () => {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={loginData.password}
+              onChange={handleChange}
               required
             />
           </div>
-          <button type="submit" className="login-btn">Login</button>
+          <button type="submit" className="login-btn" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
         <p className="signup-link">
-          Don't have an account? <a href="/signup">Sign Up</a>
+          Don't have an account? <Link to="/register">Sign Up</Link>
         </p>
       </div>
     </div>

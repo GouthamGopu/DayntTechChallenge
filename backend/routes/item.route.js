@@ -3,9 +3,9 @@ import { getItems, addItem, editItem, deleteItem } from "../controllers/item.con
 
 const router = express.Router();
 
-router.route('/').get(getItems);
-router.route('/').post(addItem);
-router.route('/:id').put(editItem);
-router.route('/:id').delete(deleteItem);
+router.route('/get').get(getItems);
+router.route('/add').post(addItem);
+router.route('/edit/:id').put(editItem);
+router.route('/delete/:id').delete(deleteItem);
 
 export default router;
