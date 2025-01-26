@@ -36,7 +36,7 @@ git clone https://github.com/GouthamGopu/DayntTechChallenge.git
 
 2. For Backend
 
--.env file
+.env file
 
 ```bash
 PORT=your_port
