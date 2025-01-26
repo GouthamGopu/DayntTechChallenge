@@ -17,7 +17,8 @@ The project is divided into two main folders:
   - Automatically calculates age based on the date of birth.
   - CRUD operations (Add, Edit, Delete) with toast notifications for each action.
 
-- **Registration Page**: Allows users to create an account.
+- **Registration Page**:
+  - Allows users to create an account.
 
 ## Setup Instructions
 
