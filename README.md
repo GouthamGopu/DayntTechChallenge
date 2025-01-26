@@ -3,7 +3,7 @@
 This project is a web application developed as part of the DayntTech Challenge. It is built using  **React**, **Material UI (MUI)**, **Redux**, and **Express**. The app has a login page, a data-driven dashboard, and user authentication. 
 
 The project is divided into two main folders:
-- **frontend**: Contains the React app with Next.js for the frontend.
+- **frontend**: Contains the React app with React.js for the frontend.
 - **backend**: Contains the Express app for the backend API.
 
 ## Features
